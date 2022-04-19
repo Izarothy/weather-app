@@ -6,9 +6,11 @@ import fetchWeatherData from './lib/fetchWeatherData';
 export default function App() {
   const [cityWeather, setCityWeather] = useState(null);
   const [inputCity, setInputCity] = useState('');
+  const [error, setError] = useState('');
 
   return (
     <View style={styles.container}>
+      <Text style={styles.err}>{error}</Text>
       <Text>{cityWeather && cityWeather}</Text>
       <StatusBar />
       <TextInput
@@ -21,8 +23,10 @@ export default function App() {
         onPress={async () => {
           const res = await fetchWeatherData(inputCity);
 
-          // 200 is the API's internal code for success
-          if (res.cod !== '200') return;
+          if (!res) {
+            setError("Sorry, we couldn't get that");
+            return setInputCity('');
+          }
 
           setCityWeather(res.city.name);
 
@@ -48,5 +52,10 @@ const styles = StyleSheet.create({
     color: '#000',
     padding: 3,
     borderColor: 'blue',
+  },
+
+  err: {
+    color: 'red',
+    fontWeight: '500',
   },
 });
