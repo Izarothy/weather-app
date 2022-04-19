@@ -1,17 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { arrayBuffer } from 'stream/consumers';
+import chunkArray from './lib/chunkArray';
 import fetchWeatherData from './lib/fetchWeatherData';
 
+/* eslint-disable no-use-before-define  */
+/* eslint-disable @typescript-eslint/no-use-before-define */
+
 export default function App() {
-  const [cityWeather, setCityWeather] = useState(null);
+  const [cityWeather, setCityWeather] = useState([[]]);
   const [inputCity, setInputCity] = useState('');
   const [error, setError] = useState('');
 
   return (
     <View style={styles.container}>
       <Text style={styles.err}>{error}</Text>
-      <Text>{cityWeather && cityWeather}</Text>
+      <Text>
+        {cityWeather[0].length > 1 && JSON.stringify(cityWeather).slice(0, 100)}
+      </Text>
       <StatusBar />
       <TextInput
         style={styles.text}
@@ -25,12 +32,15 @@ export default function App() {
 
           if (!res) {
             setError("Sorry, we couldn't get that");
+            setCityWeather([[]]);
             return setInputCity('');
           }
 
-          setCityWeather(res.city.name);
+          // The API returns 40 timestamps between 3 hours (8 per day per 5 days) as an array, so I split it into 5 arrays corresponding to each day
+          setCityWeather(chunkArray(res.list, 8));
 
           // Reset to default on fetch
+          setError('');
           setInputCity('');
         }}
       />
