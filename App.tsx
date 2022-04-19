@@ -1,13 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-const a = '';
+import { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import fetchWeatherData from './lib/fetchWeatherData';
 
 export default function App() {
+  const [cityWeather, setCityWeather] = useState(null);
+
+  useEffect(() => {
+    console.log(cityWeather);
+  }, [cityWeather]);
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <Text>Weather App</Text>
       <StatusBar style="auto" />
+      <Button
+        title="Fetch"
+        onPress={async () => {
+          const res = await fetchWeatherData('Warsaw');
+          setCityWeather(res.list[0].main);
+        }}
+      />
     </View>
   );
 }
