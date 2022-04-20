@@ -6,6 +6,7 @@ const dayStyle = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 
   weekDay: {
@@ -14,6 +15,17 @@ const dayStyle = StyleSheet.create({
 
   test: {
     marginHorizontal: '2%',
+  },
+
+  infoContainer: {
+    width: '50%',
+    color: 'gray',
+    fontSize: 17,
+  },
+
+  info: {
+    fontSize: 20,
+    color: '#000',
   },
 });
 
@@ -70,6 +82,39 @@ const Day = ({ dayWeather }: any) => {
     setWeather(minifiedWeather);
   }, [dayWeather]);
 
-  return <View style={dayStyle.container}>{/* <Text></Text> */}</View>;
+  const {
+    morningTemp,
+    dayTemp,
+    nightTemp,
+    humidity,
+    minTemp,
+    maxTemp,
+    meanTemp,
+  } = weather;
+  return (
+    <View style={dayStyle.container}>
+      <Text style={dayStyle.infoContainer}>
+        Morning <Text style={dayStyle.info}>{morningTemp}℃</Text>
+      </Text>
+      <Text style={dayStyle.infoContainer}>
+        Day <Text style={dayStyle.info}>{dayTemp}℃</Text>
+      </Text>
+      <Text style={dayStyle.infoContainer}>
+        Night <Text style={dayStyle.info}>{nightTemp}℃</Text>
+      </Text>
+      <Text style={dayStyle.infoContainer}>
+        Humidity <Text style={dayStyle.info}>{humidity}%</Text>
+      </Text>
+      <Text style={dayStyle.infoContainer}>
+        Max. temp <Text style={dayStyle.info}>{minTemp}℃</Text>
+      </Text>
+      <Text style={dayStyle.infoContainer}>
+        Min. temp <Text style={dayStyle.info}>{maxTemp}℃</Text>
+      </Text>
+      <Text style={dayStyle.infoContainer}>
+        Mean temp <Text style={dayStyle.info}>{meanTemp}℃</Text>
+      </Text>
+    </View>
+  );
 };
 export default Day;

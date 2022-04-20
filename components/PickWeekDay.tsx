@@ -33,7 +33,6 @@ const PickWeekDay = ({
   setPickedDay,
 }: PickWeekDayProps) => (
   <View style={styles.mainContainer}>
-    <Text style={styles.pickedDay}>{pickedDay}</Text>
     <View style={styles.container}>
       {weekDays &&
         weekDays.map(
@@ -50,6 +49,7 @@ const PickWeekDay = ({
             )
         )}
     </View>
+    <Text style={styles.pickedDay}>{pickedDay}</Text>
   </View>
 );
 
