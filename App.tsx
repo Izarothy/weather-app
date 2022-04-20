@@ -1,13 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  ImageBackground,
-} from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 import DaysContainer from './components/DaysContainer';
 import HeaderImage from './components/HeaderImage';
