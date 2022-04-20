@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import Day from './Day';
 
-const DaysContainer = ({ weatherData }: any) => {
+const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+const DaysContainer = ({ weatherData, pickedDay }: any) => {
   const [weekWeather, setWeekWeather] = useState<any[]>([]);
 
   useEffect(() => {
@@ -15,12 +17,18 @@ const DaysContainer = ({ weatherData }: any) => {
     });
   }, [weatherData]);
 
+  let weekDayInNumber = weekDays.indexOf(pickedDay);
+  if (weekDayInNumber === -1) weekDayInNumber = new Date().getDay();
+
   return (
     <View>
       {weekWeather.length > 1 &&
-        weekWeather.map((day: any, idx: number) => (
-          <Day key={idx} dayWeather={day} />
-        ))}
+        weekWeather.map(
+          (day: any, idx: number) =>
+            new Date(day[0].dt * 1000).getDay() === weekDayInNumber && (
+              <Day key={idx} dayWeather={day} />
+            )
+        )}
     </View>
   );
 };

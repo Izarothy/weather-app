@@ -71,7 +71,6 @@ export default function App() {
       <Text style={styles.header}>Weather forecast</Text>
       <View style={styles.container}>
         <Text style={styles.err}>{error}</Text>
-        {/* hour, cityName, weekDay, day, month, */}
         <HeaderImage
           hour={hour}
           cityName={cityName}
@@ -115,6 +114,7 @@ export default function App() {
         {Object.keys(cityWeather).length > 1 && (
           <PickWeekDay
             setPickedDay={setPickedDay}
+            pickedDay={pickedDay}
             // @ts-ignore
             weekDays={Object.values(cityWeather).map(
               // eslint-disable-next-line array-callback-return
@@ -129,7 +129,7 @@ export default function App() {
           />
         )}
         {Object.values(cityWeather).length > 1 && (
-          <DaysContainer weatherData={cityWeather} />
+          <DaysContainer weatherData={cityWeather} pickedDay={pickedDay} />
         )}
       </View>
     </>

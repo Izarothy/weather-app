@@ -11,21 +11,24 @@ const dayStyle = StyleSheet.create({
   weekDay: {
     textAlign: 'center',
   },
+
+  test: {
+    marginHorizontal: '2%',
+  },
 });
 
 const Day = ({ dayWeather }: any) => {
-  const minifiedWeather: MinifiedWeatherT = {
-    morningTemp: 0,
-    dayTemp: 0,
-    nightTemp: 0,
-    humidity: 0,
-    minTemp: 0,
-    maxTemp: 0,
-    meanTemp: 0,
-  };
-
-  const [weather, setWeather] = useState(minifiedWeather);
+  const [weather, setWeather] = useState({} as MinifiedWeatherT);
   useEffect(() => {
+    const minifiedWeather: MinifiedWeatherT = {
+      morningTemp: 0,
+      dayTemp: 0,
+      nightTemp: 0,
+      humidity: 0,
+      minTemp: 0,
+      maxTemp: 0,
+      meanTemp: 0,
+    };
     // We don't need the whole structure, just morning / day / night temperatures, overall humidity, min/max temp, mean and mode of temp
 
     /* eslint-disable @typescript-eslint/restrict-plus-operands */
@@ -67,13 +70,6 @@ const Day = ({ dayWeather }: any) => {
     setWeather(minifiedWeather);
   }, [dayWeather]);
 
-  return (
-    <View style={dayStyle.container}>
-      <Text style={dayStyle.weekDay} />
-      {Object.values(weather).map((value: number, idx: number) => (
-        <Text key={idx}>{value > 0 ? value : '-'}</Text>
-      ))}
-    </View>
-  );
+  return <View style={dayStyle.container}>{/* <Text></Text> */}</View>;
 };
 export default Day;
