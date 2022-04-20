@@ -1,10 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import { arrayBuffer } from 'stream/consumers';
-import Day from './components/Day';
 import DaysContainer from './components/DaysContainer';
-import chunkArray from './lib/chunkArray';
 import fetchWeatherData from './lib/fetchWeatherData';
 import groupBy from './lib/groupObjectsByProp';
 
@@ -59,6 +56,7 @@ export default function App() {
           if (!res || res.cod !== '200') {
             setError("Sorry, we couldn't get that");
             setCityWeather([[]]);
+            setCityName('');
             return setInputCity('');
           }
 
@@ -75,7 +73,6 @@ export default function App() {
           // Reset to default on fetch
           setError('');
           setInputCity('');
-          setCityName('');
         }}
       />
       {Object.values(cityWeather).length > 1 && (
