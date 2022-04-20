@@ -6,7 +6,7 @@ const fetchWeatherData = async (city: string): Promise<any> => {
 
   const latlong = await getLatLong(city);
   const res = await fetch(
-    `http://${ENDPOINT_URL}?${latlong}&appid=${API_KEY || ''}`
+    `http://${ENDPOINT_URL}?${latlong}&units=metric&appid=${API_KEY || ''}`
   );
 
   const data = await res.json();
