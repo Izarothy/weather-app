@@ -9,6 +9,7 @@
     "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     // VSC typescript server throws an appropriate error, this does not
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
   }
 }

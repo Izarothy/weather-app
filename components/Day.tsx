@@ -7,8 +7,9 @@ const dayStyle = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
-  test: {
-    marginHorizontal: 5,
+
+  weekDay: {
+    textAlign: 'center',
   },
 });
 
@@ -68,10 +69,9 @@ const Day = ({ dayWeather }: any) => {
 
   return (
     <View style={dayStyle.container}>
+      <Text style={dayStyle.weekDay} />
       {Object.values(weather).map((value: number, idx: number) => (
-        <Text style={dayStyle.test} key={idx}>
-          {value > 0 ? value : '-'}
-        </Text>
+        <Text key={idx}>{value > 0 ? value : '-'}</Text>
       ))}
     </View>
   );

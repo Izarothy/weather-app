@@ -17,7 +17,6 @@ const DaysContainer = ({ weatherData }: any) => {
 
   return (
     <View>
-      <Text>Days </Text>
       {weekWeather.length > 1 &&
         weekWeather.map((day: any, idx: number) => (
           <Day key={idx} dayWeather={day} />
