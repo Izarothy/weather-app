@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { arrayBuffer } from 'stream/consumers';
 import Day from './components/Day';
+import DaysContainer from './components/DaysContainer';
 import chunkArray from './lib/chunkArray';
 import fetchWeatherData from './lib/fetchWeatherData';
+import groupBy from './lib/groupObjectsByProp';
 
 const styles = StyleSheet.create({
   container: {
@@ -61,7 +63,13 @@ export default function App() {
           }
 
           // The API returns 40 timestamps between 3 hours (8 per day per 5 days) as an array, so I split it into 5 arrays corresponding to each day
-          setCityWeather(res.list);
+          res.list.forEach(
+            (item: any) => (item.day = new Date(item.dt * 1000).getDate())
+          );
+
+          const groupByDay = groupBy('day');
+
+          setCityWeather(groupByDay(res.list));
 
           setCityName(`${res.city.name}, ${res.city.country}`);
           // Reset to default on fetch
@@ -70,12 +78,9 @@ export default function App() {
           setCityName('');
         }}
       />
-      <View style={styles.daysContainer}>
-        {cityWeather[0].length > 1 &&
-          cityWeather.map((day: any, idx: number) => (
-            <Day key={idx} dayData={day} />
-          ))}
-      </View>
+      {Object.values(cityWeather).length > 1 && (
+        <DaysContainer weatherData={cityWeather} />
+      )}
     </View>
   );
 }
