@@ -13,7 +13,7 @@ const DaysContainer = ({ weatherData }: any) => {
 
       setWeekWeather((prevState: any) => [...prevState, weekDay]);
     });
-  }, []);
+  }, [weatherData]);
 
   return (
     <View>

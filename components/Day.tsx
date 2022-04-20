@@ -64,7 +64,7 @@ const Day = ({ dayWeather }: any) => {
     });
 
     setWeather(minifiedWeather);
-  }, []);
+  }, [dayWeather]);
 
   return (
     <View style={dayStyle.container}>
